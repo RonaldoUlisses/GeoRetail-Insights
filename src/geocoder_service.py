@@ -32,7 +32,7 @@ class GeocoderService:
 if __name__ == "__main__":
     service = GeocoderService()
     
-    # Teste com as variáveis  definidas
+    # Teste com as variáveis definidas via input
     bairro_teste = input("Digite o nome do bairro: ")
     cidade_teste = input("Digite o nome da cidade: ")
     estado_teste = input("Digite a sigla do estado: ")
@@ -44,4 +44,3 @@ if __name__ == "__main__":
         print(f"🌎 Coordenadas: {resultado['latitude']}, {resultado['longitude']}")
     else:
         print("\n❌ Endereço não encontrado com os parâmetros fornecidos.")
-
