@@ -67,5 +67,11 @@ class GeoRetailExtractor:
         print(f"\n✨ SUCESSO! {total_encontrados} empresas ativas encontradas em {cidade_nome}.")
         print(f"📂 Arquivo salvo em: {output_path}")
 
+def main():
+    # Esta função será chamada pelo seu Painel de Controle
+    extrator = GeoRetailExtractor()
+    extrator.extrair()
+
 if __name__ == "__main__":
-    GeoRetailExtractor().extrair()
+    # Permite que você ainda execute este script individualmente se desejar
+    main()

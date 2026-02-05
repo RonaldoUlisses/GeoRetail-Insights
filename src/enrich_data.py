@@ -6,7 +6,7 @@ import os
 class GeoRetailEnricher:
     def __init__(self):
         current_dir = os.path.dirname(os.path.abspath(__file__))
-        self.base_dir = os.path.abspath(os.path.join(current_dir, "..", ".."))
+        self.base_dir = os.path.abspath(os.path.join(current_dir, ".."))
         self.processed_dir = os.path.join(self.base_dir, "data", "processed")
 
     def enriquecer_dados(self):
@@ -68,5 +68,11 @@ class GeoRetailEnricher:
         else:
             print("⚠️ Erro ao mapear descrições. Verifique o dicionário.")
 
+def main():
+    # Esta é a função que o seu painel.py (ou main.py) vai encontrar
+    enricher = GeoRetailEnricher()
+    enricher.enriquecer_dados()
+
 if __name__ == "__main__":
-    GeoRetailEnricher().enriquecer_dados()
+    # Mantém a possibilidade de rodar o script sozinho
+    main()
