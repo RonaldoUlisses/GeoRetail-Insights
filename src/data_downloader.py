@@ -1,3 +1,5 @@
+# AQUI ESTAMOS REALIZANDO DOWNLOADS DE ARQUIVOS ZIP DE MICRODADOS
+
 import os
 import requests
 import zipfile
@@ -9,7 +11,7 @@ class DataDownloader:
         self.processed_path = os.path.join("data", "processed")
         self.base_url = "https://dadosabertos.rfb.gov.br/CNPJ/"
         
-        # Cria as pastas caso não existam no seu Explorer
+        # Cria as pastas caso não existam no Explorer
         for path in [self.raw_path, self.processed_path]:
             os.makedirs(path, exist_ok=True)
 
@@ -17,7 +19,7 @@ class DataDownloader:
         """Tenta extrair se existir localmente; caso contrário, tenta o download"""
         destino_zip = os.path.join(self.raw_path, nome_arquivo)
         
-        # 1. Verifica se o arquivo já está na pasta (Download Manual)
+        # 1. Verifica se o arquivo já estÃO na pasta (Download Manual)
         if os.path.exists(destino_zip):
             print(f"📦 Arquivo {nome_arquivo} detectado localmente. Iniciando extração...")
             self._extrair_zip(destino_zip)

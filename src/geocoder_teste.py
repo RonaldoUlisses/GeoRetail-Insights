@@ -1,3 +1,5 @@
+# GEORETAIL - TESTE DE GEOCODIFICAÇÃO DE ENDEREÇOS DE VAREJO
+
 from geopy.geocoders import Nominatim
 import time
 

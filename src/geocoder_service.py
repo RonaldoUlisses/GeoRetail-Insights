@@ -1,5 +1,12 @@
 # 1- COLETANDO DADOS GEOGRAFICOS BASEADOS EM ENDEREÇOS ESTRUTURADOS
 
+# ---------------------------------------------------------
+# Geocoding API utilizada:
+# Nominatim (OpenStreetMap)
+# Documentação oficial:
+# https://nominatim.org/release-docs/latest/api/Overview/
+# ---------------------------------------------------------
+
 from geopy.geocoders import Nominatim
 import time
 
