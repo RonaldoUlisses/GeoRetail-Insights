@@ -68,10 +68,10 @@ class GeoRetailExtractor:
         print(f"📂 Arquivo salvo em: {output_path}")
 
 def main():
-    # Esta função será chamada pelo seu Painel de Controle
+    # Esta função será chamada pelo Painel de Controle
     extrator = GeoRetailExtractor()
     extrator.extrair()
 
 if __name__ == "__main__":
-    # Permite que você ainda execute este script individualmente se desejar
+    # Permite que execute este script individualmente
     main()

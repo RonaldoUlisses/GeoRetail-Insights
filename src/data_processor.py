@@ -1,4 +1,5 @@
 # CRIANDO UM RASTREADOR SIMPLES PARA ENCONTRAR O CÓDIGO DA CIDADE
+# Este script é para varrer o arquivo de municípios da Receita Federal e encontrar o código RFB correspondente à cidade será obejto de  analise.
 
 import pandas as pd
 import os

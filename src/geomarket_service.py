@@ -1,4 +1,4 @@
-# GGEORETAIL EXPLORER – ANÁLISE ESPACIAL DE ATIVIDADES ECONÔMICAS
+# GEORETAIL EXPLORER – ANÁLISE ESPACIAL DE ATIVIDADES ECONÔMICAS
 
 # Aqui é o cerebro dinâmico para buscar oportunidades de negócios em bairros específicos;
 # Utiliza geocodificação para mapear locais e gerar arquivos prontos para visualização;

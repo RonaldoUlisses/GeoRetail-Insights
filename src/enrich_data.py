@@ -1,4 +1,8 @@
-# Aqui vamos Enriquecer os dados dos estabelecimentos com informações adicionais
+# GEORETAIL - ENRIQUECIMENTO DE DADOS
+# Este script é para enriquecer os dados dos estabelecimentos com informações adicionais, como a descrição do CNAE, usando o dicionário de CNAEs.
+# Ele também inclui uma função para padronizar os códigos de CNAE, garantindo que eles estejam no formato correto para o merge. 
+# O resultado é uma base mais completa, pronta para análise e exportação para o banco de dados.
+
 
 import pandas as pd
 import os
@@ -24,10 +28,10 @@ class GeoRetailEnricher:
         
         print(f"🔄 Carregando dados de {cidade_input.upper()} ({path_empresas})...")
         
-        # Carregamos o CSV sem nomes de colunas
+        # CSV carregado sem nomes de colunas
         df_empresas = pd.read_csv(path_empresas, dtype=str, header=None)
         
-        # Verificamos em qual coluna está o CNAE e o Bairro baseado no deslocamento (índice)
+        # Verifica em qual coluna está o CNAE e o Bairro baseado no deslocamento (índice)
         #Se houver 30 colunas, a ordem correta para Bairro e CEP costuma ser:
         if len(df_empresas.columns) >= 30:
             col_cnae = 11      # CNAE Fiscal
@@ -40,7 +44,7 @@ class GeoRetailEnricher:
             col_bairro = 17
             col_fantasia = 4
 
-        # Renomeamos apenas o necessário para o merge
+        # Renomeia apenas o necessário para o merge
         df_empresas = df_empresas.rename(columns={col_cnae: 'cnae_principal', col_bairro: 'bairro', col_fantasia: 'nome_fantasia'})
         
         df_cnae = pd.read_csv(path_cnae, dtype=str)
@@ -69,7 +73,7 @@ class GeoRetailEnricher:
             print("⚠️ Erro ao mapear descrições. Verifique o dicionário.")
 
 def main():
-    # Esta é a função que o seu painel.py (ou main.py) vai encontrar
+    # Esta é a função que o painel.py (ou main.py) vai encontrar
     enricher = GeoRetailEnricher()
     enricher.enriquecer_dados()
 

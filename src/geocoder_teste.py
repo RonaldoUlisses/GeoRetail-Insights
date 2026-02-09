@@ -3,7 +3,7 @@
 from geopy.geocoders import Nominatim
 import time
 
-# Inicializa o geocodificador (definindo um nome para o seu projeto)
+# Inicializa o geocodificador (definindo um nome para projeto)
 geolocator = Nominatim(user_agent="GeoRetail_Insights")
 
 def testar_geocodificacao(endereco):
@@ -22,6 +22,6 @@ def testar_geocodificacao(endereco):
     except Exception as e:
         print(f"Erro: {e}")
 
-# Exemplo de teste (você pode trocar por qualquer endereço de varejo)
+# Exemplo de teste (pode trocar por qualquer endereço de varejo)
 if __name__ == "__main__":
     testar_geocodificacao("Avenida Paulista, 1000, São Paulo, Brasil")

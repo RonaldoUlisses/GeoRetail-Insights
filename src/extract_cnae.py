@@ -6,12 +6,12 @@ import os
 class CnaeExtractor:
     def __init__(self):
         # Pega a pasta onde o script está (src) e sobe um nível para a raiz (GeoRetail-Insights)
-        # Se o script estiver em src/src, precisamos subir dois níveis
+        # Se o script estiver em src/src, precisa subir dois níveis
         current_dir = os.path.dirname(os.path.abspath(__file__))
         
-        # Se você está rodando de dentro de g:/Meu Drive/GeoRetail-Insights/src/src/
+        # Se está rodando de dentro de g:/Meu Drive/GeoRetail-Insights/src/
         # precisamos garantir que ele ache a pasta 'data' na raiz
-        self.base_dir = os.path.abspath(os.path.join(current_dir, "..", "..")) 
+        self.base_dir = os.path.abspath(os.path.join(current_dir, "..", ".."))
         
         self.raw_path = os.path.join(self.base_dir, "data", "raw")
         self.processed_dir = os.path.join(self.base_dir, "data", "processed")
@@ -34,7 +34,7 @@ class CnaeExtractor:
         # O arquivo de CNAE tem apenas 2 colunas: Código e Descrição
         df = pd.read_csv(arq_cnae, sep=';', encoding='latin-1', header=None, dtype=str)
         
-        # Limpeza pesada (como fizemos nos estabelecimentos)
+        # Limpeza pesada
         df[0] = df[0].str.replace(r'\D', '', regex=True) # Código
         df[1] = df[1].str.replace('"', '').str.strip().str.upper() # Descrição
         
