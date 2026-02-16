@@ -1,4 +1,10 @@
-# Debugando o arquivo descompactado para entender a estrutura dos dados
+# ANALISANDO A ESTRUTURA DOS DADOS BRUTOS
+# Este script é para verificar a estrutura dos arquivos brutos extraídos,
+# especialmente para entender como a coluna de município está formatada,
+# issoé crucial para o processo de geolocalização e análise posterior. 
+# Ele lê as primeiras linhas do arquivo bruto e mostra os valores únicos da coluna de município
+# para garantir que esta sendo identificado corretamente o código da cidade.
+
 
 import pandas as pd
 import os

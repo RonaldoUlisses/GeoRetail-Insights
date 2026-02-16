@@ -4,3 +4,9 @@ __pycache__/
 .DS_Store
 data/raw/
 data/processed/
+data/external/
+data/dashboard/
+georetail_database.db
+data/external/.shp
+data/external/.dbf
+data/external/.db

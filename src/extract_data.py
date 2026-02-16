@@ -1,4 +1,6 @@
 # GEORETAIL - EXTRATOR DE DADOS DE EMPRESAS ATIVAS POR CIDADE
+# Este script é para extrair os dados de empresas ativas de uma cidade específica, usando o código RFB encontrado no dicionário de municípios.
+# Ele varre os arquivos de estabelecimentos, filtra por município e situação ativa, e salva um CSV com os CNPJs ativos daquela localidade.
 # Basicamente, encontra o código da cidade e extrai os CNPJs ativos daquela localidade.
 
 
@@ -23,7 +25,7 @@ class GeoRetailExtractor:
             return
 
         df_mun = pd.read_csv(arq_mun, sep=';', encoding='latin-1', header=None, dtype=str)
-        # Limpeza pesada no dicionário para garantir o match do código
+        # Limpeza no dicionário para garantir o match do código
         df_mun[0] = df_mun[0].str.replace(r'\D', '', regex=True)
         df_mun[1] = df_mun[1].str.replace('"', '').str.strip().str.upper()
         
@@ -53,7 +55,7 @@ class GeoRetailExtractor:
                                  chunksize=500000, dtype=str)
 
             for chunk in reader:
-                # Limpeza radical de aspas e espaços
+                # Limpeza de aspas e espaços
                 chunk = chunk.apply(lambda x: x.str.replace('"', '').str.strip() if x.dtype == "object" else x)
                 
                 # Filtro por Índice: Coluna 20 (Município) e Coluna 5 (Situação Ativa '02')

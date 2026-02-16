@@ -1,4 +1,7 @@
 # AQUI ESTAMOS REALIZANDO DOWNLOADS DE ARQUIVOS ZIP DE MICRODADOS
+# O script verifica se os arquivos já estão na pasta "data/raw". 
+# Se não estiverem, ele tenta baixá-los diretamente do site da Receita Federal usando a URL base e o nome do arquivo.
+# Ele também inclui uma função para extrair o conteúdo dos arquivos ZIP baixados, garantindo que os dados estejam prontos para a próxima etapa de processamento.
 
 import os
 import requests
@@ -6,7 +9,7 @@ import zipfile
 
 class DataDownloader:
     def __init__(self):
-        # Define os caminhos relativos baseados na sua estrutura de pastas
+        # Define os caminhos relativos baseados na estrutura de pastas
         self.raw_path = os.path.join("data", "raw")
         self.processed_path = os.path.join("data", "processed")
         self.base_url = "https://dadosabertos.rfb.gov.br/CNPJ/"

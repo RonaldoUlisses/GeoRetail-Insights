@@ -1,4 +1,8 @@
 # CRIANDDO CÓDIGO PARA DEBUGAR O ARQUIVO DE LOTE 0 EXTRAÍDO
+# Este script é para analisar a estrutura do arquivo bruto do Lote 0,
+# verificando as colunas de município e bairro, e entendendo quais códigos de município estão presentes.
+# Isso é importante para garantir que o processo de geolocalização funcione corretamente,
+# já que ele depende desses códigos para identificar as cidades.
 
 import pandas as pd
 import os

@@ -1,45 +1,61 @@
 # CRIANDO UM RASTREADOR SIMPLES PARA ENCONTRAR O CÓDIGO DA CIDADE
+# Este script é para varrer o arquivo de municípios da Receita Federal e encontrar o código RFB correspondente à cidade será obejto de  analise.
 
 import pandas as pd
 import os
 
-class NeighborhoodTracker:
+class GeoRetailExporter:
     def __init__(self):
-        self.base_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-        # Testando  Lote 0 para descobrir o código real
-        self.raw_file = os.path.join(self.base_dir, "data", "raw", "K3241.K03200Y0.D60110.ESTABELE")
+        self.current_dir = os.path.dirname(os.path.abspath(__file__))
+        self.base_dir = os.path.abspath(os.path.join(self.current_dir, ".."))
+        self.processed_dir = os.path.join(self.base_dir, "data", "processed")
+        self.export_dir = os.path.join(self.base_dir, "data", "dashboard")
+        os.makedirs(self.export_dir, exist_ok=True)
 
-    def rastrear(self):
-        if not os.path.exists(self.raw_file):
-            print("❌ Arquivo Lote 0 não encontrado.")
+    def preparar_dashboard(self):
+        print("\n" + "="*45)
+        print("📊 GeoRetail: Exportação com Coordenadas")
+        print("="*45)
+
+        cidade = input("Qual cidade deseja exportar para o mapa? ").strip().upper()
+        cidade_slug = cidade.lower().replace(' ', '_')
+        
+        # O Power BI vai ler este arquivo fixo
+        path_input = os.path.join(self.processed_dir, f"base_{cidade_slug}_completa.csv")
+
+        if not os.path.exists(path_input):
+            print(f"❌ Erro: Base de {cidade} não encontrada.")
             return
 
-        print(f"🔍 Buscando por 'SAO JOAO' em Minas Gerais (MG)...")
+        df = pd.read_csv(path_input, low_memory=False)
 
-        # Lendo apenas as colunas essenciais: 17 (Bairro), 19 (UF) e 20 (Município)
-        reader = pd.read_csv(self.raw_file, sep=';', encoding='latin-1', header=None, 
-                             chunksize=500000, dtype=str, usecols=[14, 17, 19, 20])
+        # 1. Padronização de Colunas incluindo GPS
+        colunas_map = {
+            'nome_fantasia': 'NOME_NEGOCIO',
+            'cnae_descricao': 'SETOR_ATIVIDADE',
+            'bairro': 'BAIRRO',
+            'latitude': 'LATITUDE',
+            'longitude': 'LONGITUDE'
+        }
 
-        for i, chunk in enumerate(reader):
-            # Limpeza rápida
-            chunk[17] = chunk[17].str.replace('"', '').str.strip().str.upper()
-            chunk[19] = chunk[19].str.replace('"', '').str.strip().str.upper()
-            chunk[20] = chunk[20].str.replace('"', '').str.strip()
-            
-            # FILTRO DUPLO: Bairro correto E Estado de Minas Gerais
-            match = chunk[(chunk[17] == "SAO JOAO") & (chunk[19] == "MG")]
-            
-            if not match.empty:
-                print(f"\n✅ Encontrado no lote!")
-                # Mostra: Logradouro, Bairro, UF, Código Município
-                print(match.head(10)) 
-                print("\n💡 Verifique se o logradouro (rua) pertence a Lafaiete.")
-                print(f"O código da cidade usado pela RFB aqui é: {match[20].unique()}")
-                return # Para assim que achar a primeira evidência
+        df_dash = df.rename(columns=colunas_map)
+        
+        # Filtramos apenas o necessário para o BI
+        colunas_finais = ['NOME_NEGOCIO', 'SETOR_ATIVIDADE', 'BAIRRO', 'LATITUDE', 'LONGITUDE']
+        
+        # Garante que só exporte o que tem localização (evita erros no mapa)
+        df_dash = df_dash.dropna(subset=['LATITUDE', 'LONGITUDE'])
+        df_dash = df_dash[colunas_finais].copy()
 
-            if i % 4 == 0:
-                print(f"⏳ Analisadas {i * 500000} linhas...")
+        # 2. Informação da Cidade
+        df_dash['CIDADE'] = cidade
+
+        # 3. Exportação com encoding para acentuação (UTF-8 com BOM)
+        output_path = os.path.join(self.export_dir, "base_dashboard.csv")
+        df_dash.to_csv(output_path, index=False, encoding='utf-8-sig')
+
+        print(f"✅ SUCESSO! {len(df_dash)} pontos mapeados para {cidade}.")
+        print(f"📂 Arquivo pronto: {output_path}")
 
 if __name__ == "__main__":
-    tracker = NeighborhoodTracker()
-    tracker.rastrear()
+    GeoRetailExporter().preparar_dashboard()

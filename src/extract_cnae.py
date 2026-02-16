@@ -1,4 +1,7 @@
-# Aqui vamos Extrair e classificar todos os CNAEs
+# GEORETAIL - EXTRAÇÃO E CLASSIFICAÇÃO DE CNAEs
+# Este script é para extrair e classificar os CNAEs a partir do arquivo bruto de CNAEs extraído da Receita Federal.
+# Ele limpa os dados, padroniza os códigos e descrições, e salva um dicionário de CNAEs que pode ser usado para enriquecer a base de estabelecimentos posteriormente.
+
 
 import pandas as pd
 import os
@@ -10,7 +13,7 @@ class CnaeExtractor:
         current_dir = os.path.dirname(os.path.abspath(__file__))
         
         # Se está rodando de dentro de g:/Meu Drive/GeoRetail-Insights/src/
-        # precisamos garantir que ele ache a pasta 'data' na raiz
+        # precisa garantir que ele ache a pasta 'data' na raiz
         self.base_dir = os.path.abspath(os.path.join(current_dir, "..", ".."))
         
         self.raw_path = os.path.join(self.base_dir, "data", "raw")
@@ -34,7 +37,7 @@ class CnaeExtractor:
         # O arquivo de CNAE tem apenas 2 colunas: Código e Descrição
         df = pd.read_csv(arq_cnae, sep=';', encoding='latin-1', header=None, dtype=str)
         
-        # Limpeza pesada
+        # Limpeza
         df[0] = df[0].str.replace(r'\D', '', regex=True) # Código
         df[1] = df[1].str.replace('"', '').str.strip().str.upper() # Descrição
         

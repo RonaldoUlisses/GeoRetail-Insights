@@ -1,10 +1,15 @@
+# GEORETAIL - ANÁLISE DE BAIRROS
+# Este script é para analisar a concentração de estabelecimentos por bairro em uma cidade específica,
+# criando um ranking simples que pode ser usado para identificar áreas de maior atividade econômica e oportunidades de negócios.
+# Ele lê a base de dados processada, conta o número de estabelecimentos por bairro, e permite uma busca dinâmica para detalhar um bairro específico,
+# mostrando as atividades econômicas mais comuns naquela região.
 # Aqui vamos buscar a concetração de estabelecimentos por bairro; criando um ranking simples;
 
 import pandas as pd
 import os
 
 def main(): # <--- O painel vai procurar por este nome
-    # Ajuste de caminho: agora que estamos em 'src/', subimos apenas 1 nível
+    
     current_dir = os.path.dirname(os.path.abspath(__file__))
     base_dir = os.path.abspath(os.path.join(current_dir, ".."))
     
@@ -23,7 +28,7 @@ def main(): # <--- O painel vai procurar por este nome
 
     print(f"📖 Lendo base de dados de {cidade_input}... Aguarde.")
     
-    # Lemos apenas as colunas que importam
+    # Lendo apenas as colunas de bairro e cnae
     df = pd.read_csv(path_base, dtype=str, usecols=['bairro', 'cnae_descricao'])
 
     # 1. Ranking Geral de Bairros
