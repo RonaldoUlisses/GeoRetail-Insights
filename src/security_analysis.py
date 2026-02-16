@@ -32,12 +32,12 @@ def processar_seguranca():
             df_temp.columns = [col.upper() for col in df_temp.columns]
             
             # Filtrar cidades
-            # Nota: O nome da coluna no arquivo da SEJUSP costuma ser 'MUNICÍPIO' ou 'MUNICÍPIO IBGE'
+            #
             col_municipio = [c for c in df_temp.columns if 'MUNIC' in c][0]
             
             df_filtrado = df_temp[df_temp[col_municipio].str.upper().isin(cidades_alvo)].copy()
             
-            # Adicionar o nome do arquivo ou ano para histórico, se possível
+            # Adicionar o nome do arquivo ou ano para histórico
             df_filtrado['FONTE_ARQUIVO'] = os.path.basename(arquivo)
             
             lista_df.append(df_filtrado)

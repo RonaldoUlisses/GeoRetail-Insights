@@ -1,6 +1,8 @@
 # GEOLOCALIZAÇÃO EM MASSA - MODO SEGURO
-# Este script é para geolocalizar os registros pendentes (ativos sem latitude/longitude) usando o Nominatim do OpenStreetMap, com uma abordagem mais segura e otimizada para evitar bloqueios.
-# Ele tenta identificar os campos de endereço de forma flexível, usando tanto nomes comuns quanto índices padrão da Receita, e inclui salvamentos periódicos para garantir que o progresso não seja perdido.
+# Este script é para geolocalizar os registros pendentes (ativos sem latitude/longitude) usando o Nominatim do OpenStreetMap, 
+# com uma abordagem mais segura e otimizada para evitar bloqueios.
+# Ele tenta identificar os campos de endereço de forma flexível, usando tanto nomes comuns quanto índices padrão da Receita,
+# e inclui salvamentos periódicos para garantir que o progresso não seja perdido.
 
 import pandas as pd
 import os
